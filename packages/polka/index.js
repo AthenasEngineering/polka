@@ -1,7 +1,7 @@
 const http = require('http');
 const Router = require('trouter');
 const { parse } = require('querystring');
-const parser = require('@polka/url');
+const parser = require('../url/index.js');
 
 function lead(x) {
 	return x.charCodeAt(0) === 47 ? x : ('/' + x);
@@ -99,4 +99,4 @@ class Polka extends Router {
 	}
 }
 
-module.exports = opts => new Polka(opts);
+module.exports = Polka;
