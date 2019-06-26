@@ -1,14 +1,14 @@
-const polka = require('polka');
-const { json } = require('body-parser');
-const { makeExecutableSchema } = require('graphql-tools');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const polka                             = require("polka");
+const {json}                            = require("body-parser");
+const {makeExecutableSchema}            = require("graphql-tools");
+const {graphqlExpress, graphiqlExpress} = require("apollo-server-express");
 
-const { PORT=3000 } = process.env;
+const {PORT = 3000} = process.env;
 
 const tasks = [
-	{ id: 1, name: 'Go to Market', complete: false },
-	{ id: 2, name: 'Walk the dog', complete: true },
-	{ id: 3, name: 'Take a nap', complete: false }
+	{id: 1, name: "Go to Market", complete: false},
+	{id: 2, name: "Walk the dog", complete: true},
+	{id: 3, name: "Take a nap", complete: false}
 ];
 
 const typeDefs = `
@@ -27,21 +27,23 @@ const typeDefs = `
 const resolvers = {
 	Query: {
 		tasks: () => tasks,
-		task: (_, args) => tasks.find(o => o.id === args.id)
+		task : (_, args) => tasks.find(o => o.id === args.id)
 	}
 };
 
-const schema = module.exports = makeExecutableSchema({ typeDefs, resolvers });
+const schema = module.exports = makeExecutableSchema({typeDefs, resolvers});
 
 polka()
 	.use(json())
-	.post('/graphql', graphqlExpress(req => ({
+	.post("/graphql", graphqlExpress(req => ({
 		schema
 	})))
-	.get('/graphiql', graphiqlExpress({
-		endpointURL: '/graphql'
+	.get("/graphiql", graphiqlExpress({
+		endpointURL: "/graphql"
 	}))
 	.listen(PORT, err => {
-		if (err) throw err;
+		if (err) {
+			throw err;
+		}
 		console.log(`> Ready on localhost:${PORT}`)
 	});

@@ -1,7 +1,7 @@
-import CONFIG from '../firebase.json';
+import CONFIG from "../firebase.json";
 
 const STORAGE = localStorage;
-const KEYID = `firebase:authUser:${CONFIG.apiKey}:[DEFAULT]`;
+const KEYID   = `firebase:authUser:${CONFIG.apiKey}:[DEFAULT]`;
 
 export function isUser() {
 	let str = STORAGE.getItem(KEYID);

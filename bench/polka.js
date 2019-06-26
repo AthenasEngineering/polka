@@ -1,4 +1,4 @@
-const polka = require('../packages/polka');
+const polka = require("../packages/polka");
 
 function one(req, res, next) {
 	req.one = true;
@@ -12,9 +12,10 @@ function two(req, res, next) {
 
 polka()
 	.use(one, two)
-	.get('/favicon.ico', _ => {})
-	.get('/', (req, res) => res.end('Hello'))
-	.get('/user/:id', (req, res) => {
+	.get("/favicon.ico", _ => {
+	})
+	.get("/", (req, res) => res.end("Hello"))
+	.get("/user/:id", (req, res) => {
 		res.end(`User: ${req.params.id}`);
 	})
 	.listen(3000);

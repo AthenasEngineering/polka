@@ -1,4 +1,4 @@
-const fastify = require('fastify');
+const fastify = require("fastify");
 
 function one(req, res, next) {
 	req.one = true;
@@ -13,9 +13,10 @@ function two(req, res, next) {
 fastify()
 	.use(one)
 	.use(two)
-	.get('/favicon.ico', _ => {})
-	.get('/', (_, res) => res.send('Hello'))
-	.get('/user/:id', (req, res) => {
+	.get("/favicon.ico", _ => {
+	})
+	.get("/", (_, res) => res.send("Hello"))
+	.get("/user/:id", (req, res) => {
 		res.send(`User: ${req.params.id}`);
 	})
 	.listen(3000);

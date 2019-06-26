@@ -1,14 +1,16 @@
-const polka = require('polka');
+const polka = require("polka");
 
-const { PORT=3000 } = process.env;
-const serve = require('sirv')('public');
+const {PORT = 3000} = process.env;
+const serve         = require("sirv")("public");
 
 polka()
 	.use(serve)
-	.get('/health', (req, res) => {
-		res.end('OK');
+	.get("/health", (req, res) => {
+		res.end("OK");
 	})
 	.listen(PORT, err => {
-		if (err) throw err;
+		if (err) {
+			throw err;
+		}
 		console.log(`> Running on localhost:${PORT}`);
 	});

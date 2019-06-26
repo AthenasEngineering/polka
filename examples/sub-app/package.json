@@ -1,8 +1,8 @@
 {
-  "scripts": {
-    "start": "node index"
+  "scripts"      : {
+    "start" : "node index"
   },
-  "dependencies": {
-    "polka": "latest"
+  "dependencies" : {
+    "polka" : "latest"
   }
 }

@@ -1,7 +1,7 @@
-const polka = require('polka');
-const users = require('./users');
+const polka = require("polka");
+const users = require("./users");
 
-const { PORT=3000 } = process.env;
+const {PORT = 3000} = process.env;
 
 function reply(req, res) {
 	res.end(`Main: Hello from ${req.method} ${req.url}`);
@@ -9,10 +9,12 @@ function reply(req, res) {
 
 // Main app
 polka()
-	.get('/', reply)
-	.get('/about', reply)
-	.use('users', users)
+	.get("/", reply)
+	.get("/about", reply)
+	.use("users", users)
 	.listen(PORT, err => {
-		if (err) throw err;
+		if (err) {
+			throw err;
+		}
 		console.log(`> Running on localhost:${PORT}`);
 	});

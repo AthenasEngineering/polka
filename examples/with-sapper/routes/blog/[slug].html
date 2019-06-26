@@ -26,7 +26,7 @@
 
 	.content :global(pre) {
 		background-color: #f9f9f9;
-		box-shadow: inset 1px 1px 5px rgba(0,0,0,0.05);
+		box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.05);
 		padding: 0.5em;
 		border-radius: 2px;
 		overflow-x: auto;
@@ -47,20 +47,20 @@
 </style>
 
 <script>
-	import Layout from '../_components/Layout.html';
+	import Layout from "../_components/Layout.html";
 
 	export default {
 		components: {
 			Layout
 		},
 
-		preload({ params, query }) {
+		preload({params, query}) {
 			// the `slug` parameter is available because this file
 			// is called [slug].html
-			const { slug } = params;
+			const {slug} = params;
 
 			return fetch(`/api/blog/${slug}`).then(r => r.json()).then(post => {
-				return { post };
+				return {post};
 			});
 		}
 	};

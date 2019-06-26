@@ -1,24 +1,24 @@
-const config = require('sapper/webpack/config.js');
+const config = require("sapper/webpack/config.js");
 
 module.exports = {
-	entry: config.server.entry(),
-	output: config.server.output(),
-	target: 'node',
+	entry  : config.server.entry(),
+	output : config.server.output(),
+	target : "node",
 	resolve: {
-		extensions: ['.js', '.html']
+		extensions: [".js", ".html"]
 	},
-	module: {
+	module : {
 		rules: [
 			{
-				test: /\.html$/,
+				test   : /\.html$/,
 				exclude: /node_modules/,
-				use: {
-					loader: 'svelte-loader',
+				use    : {
+					loader : "svelte-loader",
 					options: {
-						css: false,
-						cascade: false,
-						store: true,
-						generate: 'ssr'
+						css     : false,
+						cascade : false,
+						store   : true,
+						generate: "ssr"
 					}
 				}
 			}
