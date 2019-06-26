@@ -12,6 +12,7 @@
   },
   "name"            : "polka",
   "main"            : "packages/polka/index.js",
+  "version"         : "1.0.0",
   "devDependencies" : {
     "axios"    : "^0.17.1",
     "lerna"    : "^2.8.0",
