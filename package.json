@@ -12,11 +12,14 @@
   },
   "name"            : "polka",
   "main"            : "packages/polka/index.js",
-  "version"         : "1.0.0",
+  "version"         : "1.0.1",
   "devDependencies" : {
     "axios"    : "^0.17.1",
     "lerna"    : "^2.8.0",
     "tap-spec" : "^4.1.1",
     "tape"     : "^4.8.0"
+  },
+  "dependencies"    : {
+    "trouter" : "^2.0.1"
   }
 }
