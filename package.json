@@ -10,6 +10,7 @@
     "prepublish" : "cp readme.md packages/polka/.",
     "test"       : "tape tests/*.js | tap-spec"
   },
+  "name"            : "polka",
   "main"            : "packages/polka/index.js",
   "devDependencies" : {
     "axios"    : "^0.17.1",
