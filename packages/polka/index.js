@@ -1,25 +1,29 @@
-const http    = require("http");
-const Router  = require("trouter");
-const {parse} = require("querystring");
-const parser  = require("../url/index.js");
+const http    = require('http');
+const Router  = require('trouter');
+const {parse} = require('querystring');
+const parser  = require('../url/index.js');
 
 function lead(x) {
-	return x.charCodeAt(0) === 47 ? x : ("/" + x);
+	return x.charCodeAt(0) === 47 ? x : ('/' + x);
 }
 
 function value(x) {
-	let y = x.indexOf("/", 1);
+	let y = x.indexOf('/', 1);
 	return y > 1 ? x.substring(0, y) : x;
 }
 
 function mutate(str, req) {
-	req.url  = req.url.substring(str.length) || "/";
-	req.path = req.path.substring(str.length) || "/";
+	req.url  = req.url.substring(str.length) || '/';
+	req.path = req.path.substring(str.length) || '/';
 }
 
 function onError(err, req, res, next) {
 	let code = (res.statusCode = err.code || err.status || 500);
-	res.end(err.length && err || err.message || http.STATUS_CODES[code]);
+	if (typeof err === 'string' || Buffer.isBuffer(err)) {
+		res.end(err);
+	} else {
+		res.end(err.message || http.STATUS_CODES[code]);
+	}
 }
 
 class Polka extends Router {
@@ -32,7 +36,7 @@ class Polka extends Router {
 		this.server    = opts.server;
 		this.handler   = this.handler.bind(this);
 		this.onError   = opts.onError || onError; // catch-all handler
-		this.onNoMatch = opts.onNoMatch || this.onError.bind(null, {code: 404});
+		this.onNoMatch = opts.onNoMatch || this.onError.bind(null, {code : 404});
 	}
 
 	add(method, pattern, ...fns) {
@@ -44,9 +48,9 @@ class Polka extends Router {
 	}
 
 	use(base, ...fns) {
-		if (typeof base === "function") {
+		if (typeof base === 'function') {
 			this.wares = this.wares.concat(base, fns);
-		} else if (base === "/") {
+		} else if (base === '/') {
 			this.wares = this.wares.concat(fns);
 		} else {
 			base = lead(base);
@@ -64,7 +68,7 @@ class Polka extends Router {
 	}
 
 	listen() {
-		(this.server = this.server || http.createServer()).on("request", this.handler);
+		(this.server = this.server || http.createServer()).on('request', this.handler);
 		this.server.listen.apply(this.server, arguments);
 		return this;
 	}
@@ -84,9 +88,8 @@ class Polka extends Router {
 			mutate(base, req);
 			info.pathname = req.path; //=> updates
 			fns.push(this.apps[base].handler.bind(null, req, res, info));
-		} else if (fns.length === 0) {
-			fns.push(this.onNoMatch);
 		}
+		fns.push(this.onNoMatch);
 		// Grab addl values from `info`
 		req.search = info.search;
 		req.query  = parse(info.query);
